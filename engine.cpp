@@ -12,7 +12,7 @@ Engine::Engine()
     m_RightView.setViewport(FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
     m_BGLeftView.setViewport(FloatRect(0.001f, 0.001f, 0.498f, 0.998f));
     m_BGRightView.setViewport(FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
-    m_BackgroundTexture = TextureHolder::instance().GetTexture("graphics/backgroung.png");
+    m_BackgroundTexture = TextureHolder::instance().GetTexture("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
 }
 

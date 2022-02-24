@@ -1,18 +1,10 @@
 #include <SFML/Graphics.hpp>
-
+#include "engine.h"
 using namespace sf;
 
 int main()
 {
-    /*
-    int width = VideoMode::getDesktopMode().width;
-    int height = VideoMode::getDesktopMode().height;
-    RenderWindow window(VideoMode(width, height), "ThomasWasLate", Style::Fullscreen);
-    while(window.isOpen()) {
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-            window.close();
-        window.clear();
-        window.display();
-    }*/
+    Engine engine;
+    engine.run();
     return 0;
 }
