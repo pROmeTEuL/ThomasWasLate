@@ -6,11 +6,14 @@ CONFIG -= qt
 LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 
 SOURCES += \
+        bob.cpp \
         draw.cpp \
         engine.cpp \
         input.cpp \
         main.cpp \
+        playablecharacter.cpp \
         textureholder.cpp \
+        thomas.cpp \
         update.cpp
 
 DISTFILES += \
@@ -27,5 +30,8 @@ DISTFILES += \
     sound/reachgoal.wav
 
 HEADERS += \
+    bob.h \
     engine.h \
-    textureholder.h
+    playablecharacter.h \
+    textureholder.h \
+    thomas.h

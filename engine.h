@@ -1,10 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "bob.h"
 #include "textureholder.h"
+#include "thomas.h"
+
 using namespace sf;
 
 class Engine
 {
+    Thomas m_Thomas;
+    Bob m_Bob;
     int const TILE_SIZE = 50;
     int const VERTS_IN_QUAD = 4;
     int const GRAVITY = 300;
