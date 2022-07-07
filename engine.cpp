@@ -12,8 +12,11 @@ Engine::Engine()
     m_RightView.setViewport(FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
     m_BGLeftView.setViewport(FloatRect(0.001f, 0.001f, 0.498f, 0.998f));
     m_BGRightView.setViewport(FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
+    if (!sf::Shader::isAvailable())
+        m_Window.close(); // "Time to get a new pc"
     m_BackgroundTexture = TextureHolder::instance().GetTexture("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
+    m_TextureTiles = TextureHolder::instance().GetTexture("graphics/tiles_sheet.png");
 }
 
 void Engine::run()

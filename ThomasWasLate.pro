@@ -10,6 +10,8 @@ SOURCES += \
         draw.cpp \
         engine.cpp \
         input.cpp \
+        levelmanager.cpp \
+        loadlevel.cpp \
         main.cpp \
         playablecharacter.cpp \
         textureholder.cpp \
@@ -32,6 +34,7 @@ DISTFILES += \
 HEADERS += \
     bob.h \
     engine.h \
+    levelmanager.h \
     playablecharacter.h \
     textureholder.h \
     thomas.h

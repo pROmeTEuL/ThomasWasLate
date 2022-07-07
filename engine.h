@@ -3,6 +3,7 @@
 #include "bob.h"
 #include "textureholder.h"
 #include "thomas.h"
+#include "levelmanager.h"
 
 using namespace sf;
 
@@ -10,6 +11,7 @@ class Engine
 {
     Thomas m_Thomas;
     Bob m_Bob;
+    LevelManager m_LM;
     int const TILE_SIZE = 50;
     int const VERTS_IN_QUAD = 4;
     int const GRAVITY = 300;
@@ -29,9 +31,14 @@ class Engine
     float m_TimeRemaining = 10;
     Time m_GameTotalTime;
     bool m_NewLevelRequired = true;
+    VertexArray m_VALevel;
+    int** m_ArrayLevel = nullptr;
+    Texture m_TextureTiles;
+    ////////////////////////////////////
     void input();
     void update(float dtAsSeconds);
     void draw();
+    void loadLevel();
 public:
     Engine();
     void run();
