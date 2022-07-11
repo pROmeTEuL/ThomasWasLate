@@ -58,9 +58,10 @@ int **LevelManager::nextLevel(VertexArray &rVaLevel)
     }
     ifstream inputFile(levelToLoad);
     string s;
-    while (getline(inputFile, s))
+    while (getline(inputFile, s)) {
         ++m_LevelSize.y;
-    m_LevelSize.x = s.length();
+        m_LevelSize.x = std::max<int>(m_LevelSize.x, s.length());
+    }
     inputFile.clear();
     inputFile.seekg(0, ios::beg);
     int** arrayLevel = new int*[m_LevelSize.y];
@@ -71,7 +72,7 @@ int **LevelManager::nextLevel(VertexArray &rVaLevel)
     while (inputFile >> row) {
         for (int x = 0; x < row.length(); ++x) {
             const char val = row[x];
-            arrayLevel[y][x] = atoi(&val);
+            arrayLevel[y][x] = val - '0';
         }
         ++y;
     }

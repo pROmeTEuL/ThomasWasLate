@@ -29,7 +29,8 @@ DISTFILES += \
     sound/fallinwater.wav \
     sound/fire1.wav \
     sound/jump.wav \
-    sound/reachgoal.wav
+    sound/reachgoal.wav \
+    levels/level1.txt
 
 HEADERS += \
     bob.h \
