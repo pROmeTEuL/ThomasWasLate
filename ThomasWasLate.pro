@@ -3,7 +3,16 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.0
+
+exists($$OUT_PWD/conanbuildinfo.pri) {
+    CONFIG += conan_basic_setup
+    include ($$OUT_PWD/conanbuildinfo.pri)
+} else {
+   LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
+}
+
+macx: LIBS += -ObjC
 
 SOURCES += \
         bob.cpp \
@@ -19,6 +28,7 @@ SOURCES += \
         update.cpp
 
 DISTFILES += \
+    conanfile.txt \
     fonts/Roboto-Light.ttf \
     fonts/orange_juice.ttf \
     graphics/background.png \
