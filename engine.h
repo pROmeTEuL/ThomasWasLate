@@ -35,6 +35,7 @@ class Engine
     int** m_ArrayLevel = nullptr;
     Texture m_TextureTiles;
     ////////////////////////////////////
+    bool detectCollisions(PlayableCharacter& character);
     void input();
     void update(float dtAsSeconds);
     void draw();

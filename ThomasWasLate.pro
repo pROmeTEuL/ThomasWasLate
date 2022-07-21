@@ -1,6 +1,5 @@
 TEMPLATE = app
 CONFIG += console c++11
-CONFIG -= app_bundle
 CONFIG -= qt
 
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.0
@@ -12,10 +11,14 @@ exists($$OUT_PWD/conanbuildinfo.pri) {
    LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
 
-macx: LIBS += -ObjC
+macx {
+    CONFIG += app_bundle
+    LIBS += -ObjC
+}
 
 SOURCES += \
         bob.cpp \
+        detectcollisions.cpp \
         draw.cpp \
         engine.cpp \
         input.cpp \

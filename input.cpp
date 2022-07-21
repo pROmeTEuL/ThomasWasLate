@@ -1,24 +1,39 @@
 #include "engine.h"
+#include <iostream>
 
 void Engine::input()
 {
     Event event;
     while (m_Window.pollEvent(event)) {
-        if (event.type == Event::KeyPressed) {
-            if (Keyboard::isKeyPressed(Keyboard::Escape))
-                m_Window.close();
-            if (Keyboard::isKeyPressed(Keyboard::Return))
-                m_Playing = true;
-            if (Keyboard::isKeyPressed(Keyboard::Q))
-                m_Character1 = !m_Character1;
-            if (Keyboard::isKeyPressed(Keyboard::E))
-                m_SplitScreen = !m_SplitScreen;
+        if (event.type == Event::Closed) {
+            m_Window.close();
+            return;
         }
-    }
-    if (m_Thomas.handleInput()) {
-        //play a jump sound
-    }
-    if (m_Bob.handleInput()) {
-        //play a jump sound
+        if (event.type == Event::KeyReleased) {
+            switch (event.key.code) {
+            case Keyboard::Key::Escape:
+                m_Window.close();
+                return;
+            case Keyboard::Key::Return:
+                m_Playing = true;
+                break;
+            case Keyboard::Key::Q:
+                m_Character1 = !m_Character1;
+                break;
+            case Keyboard::Key::E:
+                m_SplitScreen = !m_SplitScreen;
+                break;
+            default:
+                break;
+            }
+        }
+        if (m_Thomas.handleInput(event)) {
+            //play a jump sound
+            std::cout << "Thomas jump\n" << std::flush;
+        }
+        if (m_Bob.handleInput(event)) {
+            //play a jump sound
+            std::cout << "Bob jump\n" << std::flush;
+        }
     }
 }

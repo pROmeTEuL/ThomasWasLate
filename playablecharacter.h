@@ -25,7 +25,7 @@ protected:
     bool m_justJumped;
 public:
     void spawn(Vector2f startPosition, float gravity);
-    bool virtual handleInput() = 0;
+    bool virtual handleInput(const Event& event) = 0;
     FloatRect getPosition();
     FloatRect getFeet();
     FloatRect getHead();
