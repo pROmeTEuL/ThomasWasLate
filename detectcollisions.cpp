@@ -33,8 +33,10 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                     character.spawn(m_LM.getStartPosition(), GRAVITY);
                     if (m_ArrayLevel[y][x] == 2) {
                         //play fire sound
+                        m_SM.playFallInFire();
                     } else {
                         //play drowning sound
+                        m_SM.playFallInWater();
                     }
                 }
             }
@@ -43,7 +45,6 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                     character.stopRight(block.left);
                 else if (character.getLeft().intersects(block))
                     character.stopLeft(block.left);
-#warning not sure if it's right ^^^^^^^^^^^^^^^^^^^
                 if (character.getFeet().intersects(block))
                     character.stopFalling(block.top);
                 else if (character.getHead().intersects(block))

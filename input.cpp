@@ -30,10 +30,14 @@ void Engine::input()
         if (m_Thomas.handleInput(event)) {
             //play a jump sound
             std::cout << "Thomas jump\n" << std::flush;
+#warning delete this after tests ^^^^^^^^^^^^^^^^^^^^^
+            m_SM.playJump();
         }
         if (m_Bob.handleInput(event)) {
             //play a jump sound
             std::cout << "Bob jump\n" << std::flush;
+#warning delete this after tests ^^^^^^^^^^^^^^^^^^
+            m_SM.playJump();
         }
     }
 }

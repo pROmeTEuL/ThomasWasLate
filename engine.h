@@ -4,6 +4,7 @@
 #include "textureholder.h"
 #include "thomas.h"
 #include "levelmanager.h"
+#include "soundmanager.h"
 
 using namespace sf;
 
@@ -12,6 +13,7 @@ class Engine
     Thomas m_Thomas;
     Bob m_Bob;
     LevelManager m_LM;
+    SoundManager m_SM;
     int const TILE_SIZE = 50;
     int const VERTS_IN_QUAD = 4;
     int const GRAVITY = 300;
@@ -34,8 +36,10 @@ class Engine
     VertexArray m_VALevel;
     int** m_ArrayLevel = nullptr;
     Texture m_TextureTiles;
+    vector<Vector2f> m_FireEmitters;
     ////////////////////////////////////
     bool detectCollisions(PlayableCharacter& character);
+    void populateEmitters(vector<Vector2f>& vSoundEmitters, int** arrayLevel);
     void input();
     void update(float dtAsSeconds);
     void draw();

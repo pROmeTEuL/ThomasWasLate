@@ -26,6 +26,8 @@ SOURCES += \
         loadlevel.cpp \
         main.cpp \
         playablecharacter.cpp \
+        populateemitters.cpp \
+        soundmanager.cpp \
         textureholder.cpp \
         thomas.cpp \
         update.cpp
@@ -50,5 +52,6 @@ HEADERS += \
     engine.h \
     levelmanager.h \
     playablecharacter.h \
+    soundmanager.h \
     textureholder.h \
     thomas.h
