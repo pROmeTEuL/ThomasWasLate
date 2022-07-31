@@ -21,6 +21,7 @@ SOURCES += \
         detectcollisions.cpp \
         draw.cpp \
         engine.cpp \
+        hud.cpp \
         input.cpp \
         levelmanager.cpp \
         loadlevel.cpp \
@@ -50,6 +51,7 @@ DISTFILES += \
 HEADERS += \
     bob.h \
     engine.h \
+    hud.h \
     levelmanager.h \
     playablecharacter.h \
     soundmanager.h \

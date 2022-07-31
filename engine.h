@@ -5,6 +5,7 @@
 #include "thomas.h"
 #include "levelmanager.h"
 #include "soundmanager.h"
+#include "hud.h"
 
 using namespace sf;
 
@@ -14,6 +15,9 @@ class Engine
     Bob m_Bob;
     LevelManager m_LM;
     SoundManager m_SM;
+    Hud m_Hud;
+    int m_FramesSinceLastHudUpdate = 0;
+    int m_TargetFramesPerHudUpdate = 500;
     int const TILE_SIZE = 50;
     int const VERTS_IN_QUAD = 4;
     int const GRAVITY = 300;
