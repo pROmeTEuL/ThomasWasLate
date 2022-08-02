@@ -26,6 +26,8 @@ SOURCES += \
         levelmanager.cpp \
         loadlevel.cpp \
         main.cpp \
+        particle.cpp \
+        particlesystem.cpp \
         playablecharacter.cpp \
         populateemitters.cpp \
         soundmanager.cpp \
@@ -46,13 +48,17 @@ DISTFILES += \
     sound/fire1.wav \
     sound/jump.wav \
     sound/reachgoal.wav \
-    levels/level1.txt
+    levels/level1.txt \
+    shaders/rippleShader.frag \
+    shaders/vertShader.vert \
 
 HEADERS += \
     bob.h \
     engine.h \
     hud.h \
     levelmanager.h \
+    particle.h \
+    particlesystem.h \
     playablecharacter.h \
     soundmanager.h \
     textureholder.h \

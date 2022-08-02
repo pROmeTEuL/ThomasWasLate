@@ -6,6 +6,7 @@
 #include "levelmanager.h"
 #include "soundmanager.h"
 #include "hud.h"
+#include "particlesystem.h"
 
 using namespace sf;
 
@@ -15,6 +16,7 @@ class Engine
     Bob m_Bob;
     LevelManager m_LM;
     SoundManager m_SM;
+    ParticleSystem m_PS;
     Hud m_Hud;
     int m_FramesSinceLastHudUpdate = 0;
     int m_TargetFramesPerHudUpdate = 500;
@@ -41,6 +43,7 @@ class Engine
     int** m_ArrayLevel = nullptr;
     Texture m_TextureTiles;
     vector<Vector2f> m_FireEmitters;
+    Shader m_RippleShader;
     ////////////////////////////////////
     bool detectCollisions(PlayableCharacter& character);
     void populateEmitters(vector<Vector2f>& vSoundEmitters, int** arrayLevel);
