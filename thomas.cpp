@@ -6,31 +6,50 @@ Thomas::Thomas()
     m_jumpDuration = .45;
 }
 
-bool Thomas::handleInput(const Event &event)
+bool Thomas::handleInput()
 {
-    if (event.type != Event::EventType::KeyPressed && event.type != Event::EventType::KeyReleased)
-        return m_justJumped;
     m_justJumped = false;
-    switch (event.key.code) {
-    case Keyboard::Key::W:
-        if (event.type == Event::EventType::KeyPressed) {
-            if (!m_isJumping && !m_isFalling) {
-                m_isJumping = true;
-                m_timeThisJump = 0;
-                m_justJumped = true;
-            }
-        } else {
-            stopJump();
+
+    if (Keyboard::isKeyPressed(Keyboard::W))
+    {
+
+        // Start a jump if not already jumping
+        // but only if standing on a block (not falling)
+        if (!m_isJumping && !m_isFalling)
+        {
+            m_isJumping = true;
+            m_timeThisJump = 0;
+            m_justJumped = true;
         }
-        break;
-    case Keyboard::Key::A:
-        m_leftPressed = event.type == Event::EventType::KeyPressed;
-        break;
-    case Keyboard::Key::D:
-        m_rightPressed = event.type == Event::EventType::KeyPressed;
-        break;
-    default:
-        break;
+
     }
+    else
+    {
+        m_isJumping = false;
+        m_isFalling = true;
+
+    }
+    if (Keyboard::isKeyPressed(Keyboard::A))
+    {
+        m_leftPressed = true;
+
+    }
+    else
+    {
+        m_leftPressed = false;
+    }
+
+
+    if (Keyboard::isKeyPressed(Keyboard::D))
+    {
+
+        m_rightPressed = true;;
+
+    }
+    else
+    {
+        m_rightPressed = false;
+    }
+
     return m_justJumped;
 }

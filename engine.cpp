@@ -16,7 +16,7 @@ Engine::Engine()
         m_Window.close(); // "Time to get a new pc"
     else
         m_RippleShader.loadFromFile("shaders/vertShader.vert",
-                                    "shader/rippleShader.frag");
+                                    "shaders/rippleShader.frag");
     m_BackgroundTexture = TextureHolder::instance().GetTexture("graphics/background.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
     m_TextureTiles = TextureHolder::instance().GetTexture("graphics/tiles_sheet.png");

@@ -16,7 +16,6 @@ class ParticleSystem : public Drawable
     float m_Duration;
     bool m_IsRunning = false;
 public:
-//    ParticleSystem();
     void draw(RenderTarget& target, RenderStates states) const override;
     void init(int count);
     void emitParticles(Vector2f position);

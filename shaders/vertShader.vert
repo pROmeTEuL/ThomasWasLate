@@ -7,6 +7,6 @@ varying vec2 vTexCoord;
 void main() {
     vColor = gl_Color;
     vTexCoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }
 

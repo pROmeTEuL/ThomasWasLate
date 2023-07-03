@@ -1,68 +1,142 @@
 #include "engine.h"
+#include <SFML/Graphics.hpp>
 #include <sstream>
+
+using namespace sf;
 
 void Engine::update(float dtAsSeconds)
 {
-    if (m_NewLevelRequired) {
-        m_Thomas.spawn(Vector2f(0, 0), GRAVITY);
-        m_Bob.spawn(Vector2f(100, 0), GRAVITY);
-        m_TimeRemaining = 10;
-        m_NewLevelRequired = false;
+    if (m_NewLevelRequired)
+    {
+        // These calls to spawn will be moved to a new
+        // LoadLevel function soon
+        // Spawn Thomas and Bob
+        //m_Thomas.spawn(Vector2f(0,0), GRAVITY);
+        //m_Bob.spawn(Vector2f(100, 0), GRAVITY);
+
+        // Make sure spawn is called only once
+        //m_TimeRemaining = 10;
+        //m_NewLevelRequired = false;
+
+        // Load a level
         loadLevel();
-    }
-    if (m_Playing) {
-        m_Thomas.update(dtAsSeconds);
-        m_Bob.update(dtAsSeconds);
-        bool bob_on_thomas = false;
-        bool thomas_on_bob = false;
-        if (m_Bob.getFeet().intersects(m_Thomas.getHead())) {
-            m_Bob.stopFalling(m_Thomas.getHead().top);
-            bob_on_thomas = true;
-        }
-        else if (m_Thomas.getFeet().intersects(m_Bob.getHead())) {
-            m_Thomas.stopFalling(m_Bob.getHead().top);
-            thomas_on_bob = true;
-        }
-        if (detectCollisions(m_Thomas, thomas_on_bob) && detectCollisions(m_Bob, bob_on_thomas)) {
-            m_NewLevelRequired = true;
-            //play goal reached sound
-            m_SM.playReachGoal();
-        } else {
-            detectCollisions(m_Bob, bob_on_thomas);
-        }
-        m_TimeRemaining -= dtAsSeconds;
-        if (m_TimeRemaining <= 0)
-            m_NewLevelRequired = true;
+
     }
 
-    for (auto it = m_FireEmitters.begin(); it != m_FireEmitters.end(); ++it) {
+    if (m_Playing)
+    {
+        // Update Thomas
+        m_Thomas.update(dtAsSeconds);
+
+        // Update Bob
+        m_Bob.update(dtAsSeconds);
+
+        // Detect collisions and see if characters have reached the goal tile
+        // The second part of the if condition is only executed
+        // when thomas is touching the home tile
+        if (detectCollisions(m_Thomas) && detectCollisions(m_Bob))
+        {
+            // New level required
+            m_NewLevelRequired = true;
+
+            // Play the reach goal sound
+            m_SM.playReachGoal();
+
+        }
+        else
+        {
+            // Run bobs collision detection
+            detectCollisions(m_Bob);
+        }
+
+        // Let bob and thomas jump on each others heads
+        if (m_Bob.getFeet().intersects(m_Thomas.getHead()))
+        {
+            m_Bob.stopFalling(m_Thomas.getHead().top);
+        }
+        else if (m_Thomas.getFeet().intersects(m_Bob.getHead()))
+        {
+            m_Thomas.stopFalling(m_Bob.getHead().top);
+        }
+
+        // Count down the time the player has left
+        m_TimeRemaining -= dtAsSeconds;
+
+        // Have Thomas and Bob run out of time?
+        if (m_TimeRemaining <= 0)
+        {
+            m_NewLevelRequired = true;
+        }
+
+    }// End if playing
+
+    // Check if a fire sound needs to be played
+    vector<Vector2f>::iterator it;
+
+    // Iterate through the vector of Vector2f objects
+    for (it = m_FireEmitters.begin(); it != m_FireEmitters.end(); it++)
+    {
+        // Where is this emitter?
+        // Store the location in pos
         float posX = (*it).x;
         float posY = (*it).y;
+
+        // is the emiter near the player?
+        // Make a 500 pixel rectangle around the emitter
         FloatRect localRect(posX - 250, posY - 250, 500, 500);
-        if (m_Thomas.getPosition().intersects(localRect)) {
+
+        // Is the player inside localRect?
+        if (m_Thomas.getPosition().intersects(localRect))
+        {
+            // Play the sound and pass in the location as well
             m_SM.playFire(Vector2f(posX, posY), m_Thomas.getCenter());
         }
     }
-    if(m_SplitScreen) {
+
+    // Set the appropriate view around the appropriate character
+    if (m_SplitScreen)
+    {
         m_LeftView.setCenter(m_Thomas.getCenter());
         m_RightView.setCenter(m_Bob.getCenter());
-    } else {
-        if (m_Character1)
-            m_MainView.setCenter(m_Thomas.getCenter());
-        else
-            m_MainView.setCenter(m_Bob.getCenter());
     }
-    ++m_FramesSinceLastHudUpdate;
-    if (m_FramesSinceLastHudUpdate > m_TargetFramesPerHudUpdate) {
+    else
+    {
+        // Centre full screen around appropriate character
+        if (m_Character1)
+        {
+            m_MainView.setCenter(m_Thomas.getCenter());
+        }
+        else
+        {
+            m_MainView.setCenter(m_Bob.getCenter());
+        }
+    }
+
+    // Time to update the HUD?
+    // Increment the number of frames since the last HUD calculation
+    m_FramesSinceLastHudUpdate++;
+
+    // Update the HUD every m_TargetFramesPerHUDUpdate frames
+    if (m_FramesSinceLastHudUpdate > m_TargetFramesPerHudUpdate)
+    {
+        // Update game HUD text
         stringstream ssTime;
         stringstream ssLevel;
+
+        // Update the time text
         ssTime << (int)m_TimeRemaining;
         m_Hud.setTime(ssTime.str());
-        ssLevel << "Level: " << m_LM.getCurrentLevel();
+
+        // Update the level text
+        ssLevel << "Level:" << m_LM.getCurrentLevel();
         m_Hud.setLevel(ssLevel.str());
+
         m_FramesSinceLastHudUpdate = 0;
     }
-    if (m_PS.running()) {
+
+    // Update the particles
+    if (m_PS.running())
+    {
         m_PS.update(dtAsSeconds);
     }
-}
+}// End of update function

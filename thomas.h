@@ -8,7 +8,7 @@ class Thomas : public PlayableCharacter
 {
 public:
     Thomas();
-    bool handleInput(const Event& event) override;
+    bool handleInput() override;
 };
 
 #endif // THOMAS_H

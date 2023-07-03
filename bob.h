@@ -7,7 +7,7 @@ class Bob : public PlayableCharacter
 {
 public:
     Bob();
-    bool handleInput(const Event& event) override;
+    bool handleInput() override;
 };
 
 #endif // BOB_H

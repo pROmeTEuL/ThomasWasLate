@@ -25,7 +25,7 @@ protected:
     bool m_justJumped;
 public:
     void spawn(Vector2f startPosition, float gravity);
-    bool virtual handleInput(const Event& event) = 0;
+    bool virtual handleInput() = 0;
     FloatRect getPosition();
     FloatRect getFeet();
     FloatRect getHead();
@@ -38,7 +38,6 @@ public:
     void stopJump();
     Vector2f getCenter();
     void update(float elapsedTime);
-    bool getJump();
 };
 
 #endif // PLAYABLECHARACTER_H
