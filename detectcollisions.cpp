@@ -1,7 +1,7 @@
 #include "engine.h"
 #include "particlesystem.h"
 
-bool Engine::detectCollisions(PlayableCharacter& character)
+bool Engine::detectCollisions(PlayableCharacter& character, bool on_top_of_another)
 {
     bool reachedGoal = false;
     FloatRect detectionZone = character.getPosition();
@@ -25,6 +25,7 @@ bool Engine::detectCollisions(PlayableCharacter& character)
     if (!character.getPosition().intersects(level)) {
         character.spawn(m_LM.getStartPosition(), GRAVITY);
     }
+    bool standing_on_block = false;
     for (int x = startX; x < endX; ++x) {
         for (int y = startY; y < endY; ++y) {
             block.left = x * TILE_SIZE;
@@ -46,8 +47,10 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                     character.stopRight(block.left);
                 else if (character.getLeft().intersects(block))
                     character.stopLeft(block.left);
-                if (character.getFeet().intersects(block))
+                if (character.getFeet().intersects(block)) {
                     character.stopFalling(block.top);
+                    standing_on_block = true;
+                }
                 else if (character.getHead().intersects(block))
                     character.stopJump();
             }
@@ -60,5 +63,9 @@ bool Engine::detectCollisions(PlayableCharacter& character)
                 reachedGoal = true;
         }
     }
+//    if (!standing_on_block && !character.getJump() && !on_top_of_another) {
+//        character.stopJump();
+//        printf("cooldown!!!\n");
+//    }
     return reachedGoal;
 }

@@ -112,3 +112,8 @@ void PlayableCharacter::update(float elapsedTime)
 
     m_sprite.setPosition(m_position);
 }
+
+bool PlayableCharacter::getJump()
+{
+    return m_isJumping;
+}

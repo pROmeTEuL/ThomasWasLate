@@ -38,6 +38,7 @@ public:
     void stopJump();
     Vector2f getCenter();
     void update(float elapsedTime);
+    bool getJump();
 };
 
 #endif // PLAYABLECHARACTER_H

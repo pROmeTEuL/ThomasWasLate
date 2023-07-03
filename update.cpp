@@ -13,18 +13,23 @@ void Engine::update(float dtAsSeconds)
     if (m_Playing) {
         m_Thomas.update(dtAsSeconds);
         m_Bob.update(dtAsSeconds);
-        if (detectCollisions(m_Thomas) && detectCollisions(m_Bob)) {
+        bool bob_on_thomas = false;
+        bool thomas_on_bob = false;
+        if (m_Bob.getFeet().intersects(m_Thomas.getHead())) {
+            m_Bob.stopFalling(m_Thomas.getHead().top);
+            bob_on_thomas = true;
+        }
+        else if (m_Thomas.getFeet().intersects(m_Bob.getHead())) {
+            m_Thomas.stopFalling(m_Bob.getHead().top);
+            thomas_on_bob = true;
+        }
+        if (detectCollisions(m_Thomas, thomas_on_bob) && detectCollisions(m_Bob, bob_on_thomas)) {
             m_NewLevelRequired = true;
             //play goal reached sound
             m_SM.playReachGoal();
         } else {
-            detectCollisions(m_Thomas);
-            detectCollisions(m_Bob);
+            detectCollisions(m_Bob, bob_on_thomas);
         }
-        if (m_Bob.getFeet().intersects(m_Thomas.getHead()))
-            m_Bob.stopFalling(m_Thomas.getHead().top);
-        else if (m_Thomas.getFeet().intersects(m_Bob.getHead()))
-            m_Thomas.stopFalling(m_Bob.getHead().top);
         m_TimeRemaining -= dtAsSeconds;
         if (m_TimeRemaining <= 0)
             m_NewLevelRequired = true;

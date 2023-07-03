@@ -45,7 +45,7 @@ class Engine
     vector<Vector2f> m_FireEmitters;
     Shader m_RippleShader;
     ////////////////////////////////////
-    bool detectCollisions(PlayableCharacter& character);
+    bool detectCollisions(PlayableCharacter& character, bool on_top_of_another);
     void populateEmitters(vector<Vector2f>& vSoundEmitters, int** arrayLevel);
     void input();
     void update(float dtAsSeconds);
